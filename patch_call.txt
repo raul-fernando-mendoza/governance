@@ -1,0 +1,7 @@
+curl -i -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImFkbWluIiwicm9sZXMiOlsiQWRtaW4iXSwiZW1haWwiOiJhZG1pbkBvcGVuLW1ldGFkYXRhLm9yZyIsImlzQm90IjpmYWxzZSwidG9rZW5UeXBlIjoiUEVSU09OQUxfQUNDRVNTIiwiaWF0IjoxNzU5NTIxNzYzLCJleHAiOjE3NjAxMjY1NjN9.VXWu4BG4PEIVwg9X0uuV686CGcL7ySxoWtOKm3braE56AhFonQVdMGI4UwK2o7aI5boR5EDEXUfLNevgBiAIpRBpbiPI-ISrqzTio_MjgstFsSSvWPqcRPuNu06rwaWs-mIup3wSzkWhj7qD3O892H9Mwg9wK4axHoWp-U8ua6o2efSVJ7rt1DQg0wlhRmiz8dSA73My-Pk-rV0PJ-dyDFFKryKGcdIkmmSIfbwI06lLD0_VuWcwOwmHB8lUvIVUv42s7jrSSvV8wBenLW4_fSZjpri5vr4vQhPKlEtlfutD8N5FpMPzGaaJzaGctLaiMrJQulBmYRMNKUTSyExsQQ" \
+    -H "Accept: application/json" \
+    -H "User-Agent: myApplicationName/1.0" \
+    -d "@request_update_dashboard.json" \
+    "http://192.168.1.5:8585/api/dashboards/171750c1-446e-4668-9dc4-efc55be6a87f"
