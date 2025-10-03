@@ -9,7 +9,7 @@ server_config = OpenMetadataConnection(
     hostPort="http://openmetadata-prd-101:8585/api",
     authProvider=AuthProvider.openmetadata,
     securityConfig=OpenMetadataJWTClientConfig(
-        jwtToken="eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImFkbWluIiwicm9sZXMiOlsiQWRtaW4iXSwiZW1haWwiOiJhZG1pbkBvcGVuLW1ldGFkYXRhLm9yZyIsImlzQm90IjpmYWxzZSwidG9rZW5UeXBlIjoiUEVSU09OQUxfQUNDRVNTIiwiaWF0IjoxNzU3OTY3Mjc2LCJleHAiOjE3NjU3NDMyNzZ9.KwWeKEUZ5lBkZZQtt1hVxRbLFnXPdsQAcsYfFztJt8ufJDgf5jMTHi7z_bp-U2PuwKtXmyQnoDA-addgC-8vohu6QCroWDvMkDSGl8Sds8qyi3cxFknuVd4MP1Q6aNYJpNNkgO33-Vy9t0WrR5IDqWUlaGDEFL9fVVqB9TAKl--pMZIxCP2ke_J9MXOZvsVamsXs1BCNQe2OAuZl3ggnjRZHVVGT7I7aXdgg1r95T8owCCF8b1IlHp5gr7Fkplze8Rh6ij9JuG9jzk0n_uoigy2ME3LRJc9DcsG067pJmMPCwTJ82ydbp15qivXvYgX_xencEWMlful_LIkXTQhOHg",
+        jwtToken="",
     ),
 )
 metadata = OpenMetadata(server_config)

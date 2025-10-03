@@ -1,0 +1,106 @@
+source:
+  type: powerbi
+  serviceName: local_powerbi
+  serviceConnection:
+    config:
+      type: PowerBI
+      clientId: 
+      clientSecret: 
+      tenantId: 
+      # scope:
+      #    - https://analysis.windows.net/powerbi/api/.default (default)
+      # authorityURI: https://login.microsoftonline.com/ (default)
+      # hostPort: https://analysis.windows.net/powerbi (default)
+      # pagination_entity_per_page: 100 (default)
+      useAdminApis: false 
+      
+      pbitFilesSource:
+        pbitFileConfigType: local
+        path: "/home/raul/openmetadata/powerbi"
+        pbitFilesExtractDir: "/home/raul/openmetadata/tmp"
+
+      # For gcsConfig
+      # GCP credentials configurations
+      # We support two ways of authenticating to GCP: via GCP Credentials Values or GCP Credentials Path.
+
+      # Option 1: Authenticate using GCP Credentials Values
+      #pbitFilesSource: 
+      #  pbitFileConfigType: gcs
+      #  securityConfig: 
+      #    type: "openmetadata-powerbi-pbit@thoth-dev-346022.iam.gserviceaccount.com"
+      #    projectId: "thoth-dev-346022"
+      #    privateKeyId: ""
+      #    privateKey: "-----BEGIN PRIVATE KEY----------END PRIVATE KEY-----\n"
+      #    clientEmail: "openmetadata-powerbi-pbit@thoth-dev-346022.iam.gserviceaccount.com"
+      #    clientId: "118190313210910760686"
+      #    authUri: "https://accounts.google.com/o/oauth2/auth"
+      #    authProviderX509CertUrl: "https://www.googleapis.com/robot/v1/metadata/x509/openmetadata-powerbi-pbit%40thoth-dev-346022.iam.gserviceaccount.com"
+      #    clientX509CertUrl: "https://www.googleapis.com/oauth2/v1/certs"
+      #  prefixConfig:
+      #    bucketName: "powerbi-public-pbit"
+      #    objectPrefix: "/"
+      #   pbitFilesExtractDir: "/tmp/pbitFiles"
+
+  sourceConfig:
+    config:
+      type: DashboardMetadata
+      #lineageInformation:
+      #    dbServiceNames:
+      #    - DAP_PowerBI
+      #     - service2
+      #dashboardFilterPattern:
+      #   includes:
+      #     - "Performance Analysis V1"
+      #     - dashboard2
+      #   excludes:
+      #     - dashboard3
+      #     - dashboard4
+      # chartFilterPattern:
+      #   includes:
+      #     - chart1
+      #     - chart2
+      #   excludes:
+      #     - chart3
+      #     - chart4
+      # projectFilterPattern:
+      #   includes:
+      #     - project1
+      #     - project2
+      #   excludes:
+      #     - project3
+      #     - project4
+      # dataModelFilterPattern:
+      #   includes:
+      #     - dataModel1
+      #     - dataModel2
+      #   excludes:
+      #     - dataModel3
+      #     - dataModel4
+      # includeOwners: false # true
+      # markDeletedDashboards: true # false
+      # markDeletedDataModels: true # false
+      # includeTags: true # false
+      # includeDataModels: true # false
+      # includeDraftDashboard: true # false
+      # overrideMetadata: false # true
+      # overrideLineage: false # true
+sink:
+  type: metadata-rest
+  config: {}
+workflowConfig:
+  loggerLevel: INFO  # DEBUG, INFO, WARNING or ERROR
+  openMetadataServerConfig:
+    hostPort: "http://localhost:8585/api"
+    authProvider: openmetadata
+    securityConfig:
+      jwtToken: ""
+    ## Store the service Connection information
+    storeServiceConnection: true  # false
+    ## Secrets Manager Configuration
+    # secretsManagerProvider: aws, azure or noop
+    # secretsManagerLoader: airflow or env
+    ## If SSL, fill the following
+    # verifySSL: validate  # or ignore
+    # sslConfig:
+    #   caCertificate: /local/path/to/certificate
+# ingestionPipelineFQN: <service name>.<ingestion name> ## e.g., "my_redshift.metadata"

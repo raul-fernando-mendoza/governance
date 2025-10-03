@@ -1,0 +1,17 @@
+
+
+
+curl -i -X POST \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer <jwt>" \
+    -H "Accept: application/json" \
+    -H "User-Agent: myApplicationName/1.0" \
+    -d "@request-body.json" \
+    "https://twentyfourhourfit.east-us-2.azure.snowflakecomputing.com/api/v2/statements"
+
+curl -X GET \
+  https://twentyfourhourfit.east-us-2.azure.snowflakecomputing.com/api/v2/statements \
+  -H "Authorization: Bearer SECRET"
+
+
+172.16.240.0

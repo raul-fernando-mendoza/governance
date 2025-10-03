@@ -8,8 +8,8 @@ server_config = OpenMetadataConnection(
     hostPort="http://openmetadata-prd-101:8585/api",
     authProvider=AuthProvider.openmetadata,
     securityConfig=OpenMetadataJWTClientConfig(
-       #jwtToken="eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImFkbWluIiwicm9sZXMiOlsiQWRtaW4iXSwiZW1haWwiOiJhZG1pbkBvcGVuLW1ldGFkYXRhLm9yZyIsImlzQm90IjpmYWxzZSwidG9rZW5UeXBlIjoiUEVSU09OQUxfQUNDRVNTIiwiaWF0IjoxNzUyMDA1ODE1LCJleHAiOjE3NTk3ODE4MTV9.adVxJuXYRVe5m_CqGZggDEM6Z-Is2ScSzGfSqmW2aJAgDu7mkws338BoxGr_VLCHpPHb8Z3u-f_LbKMmKtNPNaajWaIflCHfkscfo3yZiSs-tYzq3Cnd05d364M9uUejZLU4Pa6TlWDvpIh4qebH1SgJq8ehjAfmxgt6peQJHhKM0rDbrI4gNBT_XDe4TIJWEImBaqjVl_nqZcfot_bn0eIUbVZ-M-UaDP2EQNXtK19PVXEMExVLn_9S52TrmC9y-pgonPPyc2bksBKmV38gOfeQVNNzKUIgTYN5fG6PbcaLop216rlGjBGZlOu7k2Ys6_MVosVBezlcfI1PtdwlcQ",
-        jwtToken="eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImFkbWluIiwicm9sZXMiOlsiQWRtaW4iXSwiZW1haWwiOiJhZG1pbkBvcGVuLW1ldGFkYXRhLm9yZyIsImlzQm90IjpmYWxzZSwidG9rZW5UeXBlIjoiUEVSU09OQUxfQUNDRVNTIiwiaWF0IjoxNzUzMzc2NjY3LCJleHAiOjE3NTU5Njg2Njd9.H0AT9RMxZ9Q0ygdZEE4fglXnaht7jEiTpdmn-Uy3bcoTwbvSZmgP5Xsj9pfNdniynKrzqTq4QWWOWny3EdJYBOGoxdcn3Ai-r10P0O-VxncTBmy5TljHG6y8QTB-oV8L5yx_rBjm5DGeTnyo34ikd4xhpSMmUPo3I1w2RqruOlkon5iqvU9Rz-nLUPHwj2fyWUL4djyeqe50ERnkLTLZWKCT9lAgt2wZBRlzUmI1YZxCtaaW9o3FhG2i-mkOVBmxl5MD5iDU9dYgWdjQ9JMSB6oTlvqacdAIVOW_pHCR0nNVA0Rvd5v6sApacQZl0g9VDqDv1Psi4BLaM28d_DBaNw"
+       #jwtToken="",
+        jwtToken=""
     ),
 )
 metadata = OpenMetadata(server_config)
@@ -34,8 +34,29 @@ from metadata.generated.schema.entity.services.dashboardService import (
 )
 from metadata.generated.schema.api.data.createDashboard import CreateDashboardRequest
 
-service_entity = metadata.get_by_name(entity=DashboardService, fqn='ServicePowerBiPerformanceAnalysis', fields=None)
+from metadata.generated.schema.entity.data.dashboard import Dashboard
 
+allEntities = metadata.list_entities(Dashboard, limit=10000)
+
+
+for e in allEntities:
+    dashboards = e[1]
+    if type(e[1]) is list:
+        with open('output.json', 'w') as f:
+            for d in e[1]:
+                if d.project == "Field Operations V1":
+                    f.write(f"{d.id} {d.fullyQualifiedName.root } - {d.displayName} - {d.project}\n")
+                    
+                else:
+                    byid = metadata.get_by_id(Dashboard, d.id)
+                    if byid != None:
+                        print(f"{byid.fullyQualifiedName.root } - {byid.displayName} - {byid.project}\n")
+                        metadata.delete(Dashboard, d.id, hard_delete=True)
+#use the id inside the UUID from the previous 
+d = metadata.get_by_id(Dashboard, 'eb6cc899-0b6e-422c-bba3-e051d620b1aa')
+
+print(d)
+"""
 dashboard_request = CreateDashboardRequest(
                         name="Performance_Analysis_V1",
                         displayName="Performance Analysis V1",
@@ -51,3 +72,4 @@ dashboard_request = CreateDashboardRequest(
 dashboar_entity = metadata.create_or_update(data=dashboard_request)
 
 print( dashboar_entity )
+"""
